@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from internationalization_practice.views import say_hello, \
+    switch_language, test2_view
+
 urlpatterns = [
+    path('hello_world/', say_hello),
+    path('hello_world2/', test2_view),
+    path('switch_lang/', switch_language),
     path('admin/', admin.site.urls),
 ]

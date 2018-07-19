@@ -1,0 +1,13 @@
+{% load i18n %}
+<html xmlns="http://www.w3.org/1999/xhtml"
+xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+<body>
+<ul>
+  {% for lang in languages %}
+  <a href="/switch_lang?language={{lang}}&next={{next}}">{{lang}}</a>
+  {% endfor %}
+</ul>
+        <p>{% trans "hello world" %}</p>
+       {{ code }}
+</body>
+</html>
