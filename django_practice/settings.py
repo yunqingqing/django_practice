@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'internationalization_practice'
+    'internationalization_practice',
+    'customizing_auth_practice',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +71,10 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = ['customizing_auth_practice.backend.AuthBackend']
+
+AUTH_USER_MODEL = 'customizing_auth_practice.MyUser'
 
 WSGI_APPLICATION = 'django_practice.wsgi.application'
 
