@@ -1,11 +1,6 @@
-from threading import Thread, local
-
-from django.shortcuts import render
-from django.utils import translation
-from django import shortcuts
 from django.shortcuts import render_to_response
-from django.template import RequestContext
 from django.conf import settings
+from django import shortcuts
 from django.http import HttpResponse
 from django.utils.translation import ugettext as _
 

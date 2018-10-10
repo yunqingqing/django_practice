@@ -10,7 +10,8 @@ class AuthBackend:
     Use the login name and a hash of the password. For example:
 
     ADMIN_LOGIN = 'admin'
-    ADMIN_PASSWORD = 'pbkdf2_sha256$30000$Vo0VlMnkR4Bk$qEvtdyZRWTcOsCnI/oQ7fVOu1XAURIZYoOZ3iq8Dr4M='
+    ADMIN_PASSWORD = 'pbkdf2_sha256$30000$Vo0VlMnkR4Bk$qE'
+                     'vtdyZRWTcOsCnI/oQ7fVOu1XAURIZYoOZ3iq8Dr4M='
     """
 
     def authenticate(self, request, username=None, password=None):
