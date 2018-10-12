@@ -1,6 +1,8 @@
-from django.conf import settings
-from django.contrib.auth.hashers import check_password
-from django.contrib.auth.models import User
+from customizing_auth_practice.models import MyUser as User
+from django.contrib.auth import get_user_model
+
+
+UserModel = get_user_model()
 
 
 class AuthBackend:
@@ -14,24 +16,30 @@ class AuthBackend:
                      'vtdyZRWTcOsCnI/oQ7fVOu1XAURIZYoOZ3iq8Dr4M='
     """
 
-    def authenticate(self, request, username=None, password=None):
-        login_valid = (settings.ADMIN_LOGIN == username)
-        pwd_valid = check_password(password, settings.ADMIN_PASSWORD)
-        if login_valid and pwd_valid:
-            try:
-                user = User.objects.get(username=username)
-            except User.DoesNotExist:
-                # Create a new user. There's no need to set a password
-                # because only the password from settings.py is checked.
-                user = User(username=username)
-                user.is_staff = True
-                user.is_superuser = True
-                user.save()
-            return user
-        return None
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        if username is None:
+            username = kwargs.get(UserModel.USERNAME_FIELD)
+        try:
+            user = UserModel._default_manager.get_by_natural_key(username)
+        except UserModel.DoesNotExist:
+            # Run the default password hasher once to reduce the timing
+            # difference between an existing and a nonexistent user (#20760).
+            UserModel().set_password(password)
+        else:
+            if user.check_password(password) \
+                    and self.user_can_authenticate(user):
+                return user
 
     def get_user(self, user_id):
         try:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
+
+    def user_can_authenticate(self, user):
+        """
+        Reject users with is_active=False. Custom user models that don't have
+        that attribute are allowed.
+        """
+        is_active = getattr(user, 'is_active', None)
+        return is_active or is_active is None
