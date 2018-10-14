@@ -21,3 +21,4 @@ tags
 django.mo
 djangojs.mo
 __pycache__/
+*.egg-info/
