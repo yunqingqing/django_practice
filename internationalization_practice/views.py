@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.conf import settings
 from django import shortcuts
 from django.http import HttpResponse
@@ -39,6 +39,6 @@ def test2_view(request):
                         'code': code,
                         'next': request.get_full_path(),
                         'languages': [l[0] for l in settings.LANGUAGES]}
-    resp = render_to_response('internationlization/switch_language.html',
+    resp = render(request, 'internationlization/switch_language.html',
                               context=response_context)
     return resp

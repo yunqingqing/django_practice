@@ -28,6 +28,7 @@ router.register(r'users', api_views.UserViewSet)
 urlpatterns = [
     path('hello_world/', say_hello),
     path('hello_world2/', test2_view),
+    path('users/', api_views.Users.as_view()),
     path('switch_lang/', switch_language),
     path('admin/', admin.site.urls),
     path(r'rest_api/', include(router.urls)),
