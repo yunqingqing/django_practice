@@ -37,3 +37,31 @@ LOCALE_PATHS = [
 编译翻译文件   `django-admin.py compilemessages`
 
 注意：如果是新起了一个线程，那个线程里的翻译会使用`settings.LANGUAGE_CODE`设置的语言
+
+## mysql连接池
+
+核心代码: `django_practice/utils/sql_pool/base.py`
+使用了`sqlalchemy`提供的连接池模块
+sqlalchemy的一些配置,目前是硬编码的,可以抽出到django的配置中
+```python
+SQLALCHEMY_QUEUEPOOL = {
+    'pool_size': 100,
+    'max_overflow': 10,
+    'timeout': 5,
+    'recycle': 119,
+```
+
+配置`settings.py`
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'utils.sql_pool',
+        'NAME': 'dj',
+        'HOST': '127.0.0.1',
+        'PASSWORD': '123456',
+        'USER': 'root'
+    }
+}
+```
+
+benchmark: 相同条件下,使用过了连接池在100并发下,可以比不使用连接池多50左右的RPS
