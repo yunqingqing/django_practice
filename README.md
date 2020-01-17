@@ -1,6 +1,18 @@
+# django的一些例子
+
+## 部署启动项目
+
+```bash
+$git clone https://github.com/yunqingqing/django_practice.git
+$cd django_practice
+$sudo docker-compose  up
+```
+
+目前是apache+mod_wsgi启动服务, 服务地址: http://127.0.0.1
 
 ## 初始化做的一些事
-```
+
+```bash
 django-admin startproject django_practice
 pip freeze > ./requirements.txt
 ```
@@ -8,7 +20,8 @@ pip freeze > ./requirements.txt
 ## 国际化
 
 在`SessionMiddleware`后增加`django.middleware.locale.LocaleMiddleware`
-```
+
+```python
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -43,6 +56,7 @@ LOCALE_PATHS = [
 核心代码: `django_practice/utils/sql_pool/base.py`
 使用了`sqlalchemy`提供的连接池模块
 sqlalchemy的一些配置,目前是硬编码的,可以抽出到django的配置中
+
 ```python
 SQLALCHEMY_QUEUEPOOL = {
     'pool_size': 100,
@@ -52,6 +66,7 @@ SQLALCHEMY_QUEUEPOOL = {
 ```
 
 配置`settings.py`
+
 ```python
 DATABASES = {
     'default': {

@@ -1,0 +1,27 @@
+version: '3.2'
+
+services:
+  # MySQL
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: dj
+      MYSQL_USER: dj
+      MYSQL_PASSWORD: 123456
+
+  web:
+    build: .
+    # runserver启动
+    # command: sh run_web.sh
+    volumes:
+      - .:/webapps
+    ports:
+      # - "8000:8000"
+      - "80:80"
+    links:
+      - db
+    depends_on:
+      - db
