@@ -7,7 +7,7 @@ import sqlalchemy.pool as pool
 from sqlalchemy.pool import QueuePool
 
 SQLALCHEMY_QUEUEPOOL = {
-    'pool_size': 100,
+    'pool_size': 10,
     'max_overflow': 10,
     'timeout': 5,
     'recycle': 119,
