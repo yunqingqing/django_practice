@@ -160,3 +160,14 @@ Percentage of the requests served within a certain time (ms)
   99%   4159
  100%   4564 (longest request)
 ```
+
+## 信号
+
+django信号的实现只能在当前django进程中传播， 如果项目运行在uwsgi, mod_wsgi下，多个django进程中信号是不通的。
+
+
+## 缓存
+
+后端支持文件，数据库，memcached, 本地。
+
+memcached的的驱动有两种选择， memcache, pylibmc。其中pylibmc时使用c扩展写的，支持memache二进制协议和一致性hash算法。
